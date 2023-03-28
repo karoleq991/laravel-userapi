@@ -50,19 +50,15 @@ class UserController extends BaseController
     public function update(Request $request, User $user)
     {
         $input = $request->all();
-
         $validator = Validator::make($input, [
-            'name' => 'required',
-            'detail' => 'required'
+            'email' => 'email'
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validation Error.', $validator->errors());
         }
 
-        $user->name = $input['name'];
-        $user->detail = $input['detail'];
-        $user->save();
+        $user->update(array_filter($request->all()));
 
         return $this->sendResponse(new UserResource($user), 'User updated successfully.');
     }
