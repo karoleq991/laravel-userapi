@@ -2,8 +2,8 @@
 
 ## Recruitment task
 
-Hello, 
-below the instruction thanks to which you will be able to check the correctness of the tasks :)
+Hi, 
+below I am sending you the instructions so that you can evaluate my task. Regards :)
 
 ### Installation
 1. Clone the repo
