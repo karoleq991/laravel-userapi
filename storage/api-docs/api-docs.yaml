@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: laravel-user-api
+  description: "Create By Karol Pytel"
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: Profile
+  - name: Users
+  - name: Authentication
+paths:
+  /api/profile:
+    post:
+      tags:
+        - Profile
+      summary: update
+      description: "Update profile details"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: name
+                surname:
+                  type: string
+                  example: surname
+                image:
+                  type: string
+                  format: binary
+                email:
+                  type: string
+                  example: email@email.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users:
+    get:
+      tags:
+        - Users
+      summary: users
+      description: "Get all users"
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/users/{userId}:
+    get:
+      tags:
+        - Users
+      summary: user
+      description: "Get one user"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "ID of user to get"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Users
+      summary: update
+      description: "Update user"
+      requestBody:
+        content: {}
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "ID of user to update"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: name
+          in: query
+          schema:
+            type: string
+          example: name
+        - name: surname
+          in: query
+          schema:
+            type: string
+          example: surname
+        - name: email
+          in: query
+          schema:
+            type: string
+          example: test@email.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Users
+      summary: delete
+      description: "Delete user"
+      parameters:
+        - name: "userId"
+          in: "path"
+          description: "ID of user to Delete"
+          required: true
+          type: "integer"
+          format: "int64"
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/register:
+    post:
+      tags:
+        - Authentication
+      summary: register
+      description: "Register new user"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Tester
+                surname:
+                  type: string
+                  example: Testerowy
+                email:
+                  type: string
+                  example: test@gmail.com
+                password:
+                  type: string
+                  example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/login:
+    post:
+      tags:
+        - Authentication
+      summary: login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@gmail.com
+                password:
+                  type: string
+                  example: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/logout:
+    get:
+      tags:
+        - Authentication
+      summary: logout
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
